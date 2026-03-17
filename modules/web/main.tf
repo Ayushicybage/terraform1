@@ -2,9 +2,9 @@ resource "aws_security_group" "alb_sg" {
   vpc_id = var.vpc_id
 
   ingress {
-    from_port = 80
-    to_port   = 80
-    protocol  = "tcp"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
@@ -22,19 +22,19 @@ module "alb" {
 
   target_groups = [
     {
-      name_prefix = "app"
+      name_prefix      = "app"
       backend_protocol = "HTTP"
-      backend_port = 80
-      target_type = "instance"
+      backend_port     = 80
+      target_type      = "instance"
     }
   ]
 
   listeners = [
     {
-      port = 80
+      port     = 80
       protocol = "HTTP"
       default_action = {
-        type = "forward"
+        type               = "forward"
         target_group_index = 0
       }
     }
