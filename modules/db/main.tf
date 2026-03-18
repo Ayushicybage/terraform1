@@ -27,5 +27,8 @@ module "rds" {
   vpc_security_group_ids = [aws_security_group.db_sg.id]
   subnet_ids             = var.subnet_ids
 
+  major_engine_version = "8.0"
+  family               = "mysql8.0"
+
   skip_final_snapshot = true
 }
