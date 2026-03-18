@@ -33,6 +33,8 @@ module "rds" {
   username = var.db_user
   password = var.db_pass
 
+  manage_master_user_password = false 
+
   create_db_subnet_group = true
   subnet_ids             = var.subnet_ids
 
