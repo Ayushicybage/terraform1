@@ -11,7 +11,7 @@ resource "aws_security_group" "alb_sg" {
 
 module "alb" {
   source  = "terraform-aws-modules/alb/aws"
-  version = "9.0.0"
+  version = "8.7.0"
 
   name = "${var.env}-alb"
 
@@ -20,27 +20,24 @@ module "alb" {
 
   security_groups = [aws_security_group.alb_sg.id]
 
-  target_groups = {
-  app = {
+  target_groups = [
+  {
     name_prefix      = "app"
     backend_protocol = "HTTP"
     backend_port     = 80
     target_type      = "instance"
-    create_attachment = false
   }
-}
+]
 
-  listeners = {
-  http = {
+  listeners = [
+  {
     port     = 80
     protocol = "HTTP"
 
-    actions = [
-      {
-        type             = "forward"
-        target_group_key = "app"
-      }
-    ]
+    default_action = {
+      type             = "forward"
+      target_group_index = 0
+    }
   }
-}
+]
 }
