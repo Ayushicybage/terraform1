@@ -11,3 +11,8 @@ variable "db_user" {}
 variable "db_pass" {
   sensitive = true
 }
+
+variable "env" {
+  description = "Environment name"
+  type        = string
+}

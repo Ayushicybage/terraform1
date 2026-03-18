@@ -33,7 +33,6 @@ module "rds" {
   username = var.db_user
   password = var.db_pass
 
-  # ✅ CRITICAL FIX
   create_db_subnet_group = true
   subnet_ids             = var.subnet_ids
 
