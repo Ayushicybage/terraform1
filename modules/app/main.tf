@@ -9,6 +9,18 @@ resource "aws_security_group" "app_sg" {
   }
 }
 
+data "aws_ami" "amazon_linux" {
+  most_recent = true
+
+  owners = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
+  }
+}
+
+
 module "asg" {
   source  = "terraform-aws-modules/autoscaling/aws"
   version = "7.0.0"
@@ -21,7 +33,7 @@ module "asg" {
 
   vpc_zone_identifier = var.subnets
 
-  image_id      = var.ami_id
+  image_id      = data.aws_ami.amazon_linux.id
   instance_type = var.instance_type
 
   security_groups = [aws_security_group.app_sg.id]
